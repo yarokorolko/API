@@ -1,0 +1,158 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  #weather-container {
+    text-align: center;
+    transition: opacity 0.3s ease;
+    margin-top: 30px;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  img {
+    margin-top: 10px;
+    max-width: 100%;
+  }
+  
+  .city-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.2);
+  }
+  
+  #current-city {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    text-align: center;
+  }
+  
+  #city-name {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  #country-name {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  #prev-country-name,
+  #next-country-name {
+    font-size: 12px;
+  }
+  
+  .city-navigation button {
+    transition: transform 0.3s ease;
+  }
+  
+  .city-navigation button:focus {
+    outline: none;
+  }
+  
+  .city-navigation button:focus,
+  .city-navigation button:active {
+    transform: scale(1.2);
+  }
+
+  .api-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .left-column {
+    text-align: right;
+  }
+  
+  .right-column {
+    text-align: left;
+  }
+  
+  .rectangle {
+    width: 450px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
+  
+  .rectangle p {
+    text-align: center;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+  }
+  li {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  li:hover {
+    background-color: #ddd;
+  }
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  #map {
+    height: 400px;
+    width: 100%;
+}
+

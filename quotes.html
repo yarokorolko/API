@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Famous Quotes API Example</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .quoteContainer {
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .quoteText {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .quoteAuthor {
+      font-style: italic;
+    }
+
+    .quoteButton {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .quoteButton:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+      </ul>
+  <h1>Random Famous Quotes</h1>
+
+  <div class="quoteContainer">
+    <p class="quoteText">Click the button to get a random famous quote.</p>
+    <p class="quoteAuthor"></p>
+    <button class="quoteButton">Get Quote</button>
+  </div>
+
+  <script>
+    const API_KEY = 'YOUR_API_KEY'; // Substitua 'YOUR_API_KEY' pela sua chave de API
+
+    const quoteTextElement = document.querySelector('.quoteText');
+    const quoteAuthorElement = document.querySelector('.quoteAuthor');
+    const quoteButton = document.querySelector('.quoteButton');
+
+    quoteButton.addEventListener('click', getRandomQuote);
+
+    async function getRandomQuote() {
+      try {
+        const response = await fetch(`https://api.quotable.io/random?apiKey=${API_KEY}`);
+        const data = await response.json();
+
+        quoteTextElement.textContent = data.content;
+        quoteAuthorElement.textContent = `- ${data.author}`;
+      } catch (error) {
+        console.log('Error:', error);
+        quoteTextElement.textContent = 'Failed to fetch quote data.';
+        quoteAuthorElement.textContent = '';
+      }
+    }
+  </script>
+</body>
+</html>

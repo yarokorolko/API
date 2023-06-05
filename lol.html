@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pesquisa de Invocadores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #search-input {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #search-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #search-button:hover {
+            background-color: #0056b3;
+        }
+
+        #results-container {
+            margin-top: 20px;
+        }
+
+        .summoner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+        }
+
+        .summoner h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .summoner p {
+            margin: 5px 0;
+        }
+
+        .summoner p.icon-info {
+            margin-top: 10px;
+        }
+
+        .summoner img {
+            width: 200px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+    </ul>
+    <h1>Pesquisa de Invocadores</h1>
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Digite o nome do invocador">
+        <button onclick="searchSummoner()" id="search-button">Pesquisar</button>
+    </div>
+    <div id="results-container"></div>
+
+    <script>
+        function searchSummoner() {
+            const searchInput = document.getElementById('search-input').value;
+            const apiKey = 'RGAPI-963dcb26-ad7d-423c-80a4-6c77eb5603fd';
+            const region = 'euw1' // Insira sua chave de API da Riot Games aqui
+
+            fetch(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(searchInput)}?api_key=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById('results-container');
+                    resultsContainer.innerHTML = '';
+
+                    const summonerElement = document.createElement('div');
+                    summonerElement.classList.add('summoner');
+                    summonerElement.innerHTML = `
+                        <h2>${data.name}</h2>
+                        <p>Nível: ${data.summonerLevel}</p>
+                        <p>Região: ${data.region}</p>
+                        <p class="icon-info">Ícone do Invocador: <img src="http://ddragon.leagueoflegends.com/cdn/11.11.1/img/profileicon/${data.profileIconId}.png" alt="Ícone do Invocador"></p>
+                        <!-- Adicione outras informações relevantes do invocador aqui -->
+                    `;
+                    resultsContainer.appendChild(summonerElement);
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    </script>
+</body>
+</html>

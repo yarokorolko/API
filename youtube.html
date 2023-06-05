@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>YouTube API</title>
+    <style>
+        #search-container {
+            margin-bottom: 10px;
+        }
+
+        #search-input {
+            width: 200px;
+        }
+
+        #results-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .video {
+            margin: 10px;
+        }
+
+        .video iframe {
+            width: 560px;
+            height: 315px;
+        }
+
+        .video .title {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .video .description {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+      </ul>
+      <center>
+    <h1>YouTube API</h1>
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Digite o nome do vídeo">
+        <button onclick="searchVideo()">Pesquisar</button>
+    
+    </div>
+</center>
+    <div id="results-container"></div>
+
+    <script>
+        function searchVideo() {
+            const searchInput = document.getElementById('search-input').value;
+            const apiKey = 'AIzaSyDhNum22PsFtMiNJFyrZFlocj2jICBThkM';
+
+            fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchInput}&type=video&key=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById('results-container');
+                    resultsContainer.innerHTML = '';
+
+                    if (data && data.items && data.items.length > 0) {
+                        data.items.forEach(video => {
+                            const videoElement = document.createElement('div');
+                            videoElement.classList.add('video');
+                            videoElement.innerHTML = `
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id.videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                <div class="title">${video.snippet.title}</div>
+                                <div class="description">${video.snippet.description}</div>
+                            `;
+                            resultsContainer.appendChild(videoElement);
+                        });
+                    } else {
+                        resultsContainer.textContent = 'Nenhum vídeo encontrado.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    </script>
+</body>
+</html>

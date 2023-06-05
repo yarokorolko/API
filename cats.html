@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+  <title>Random Cat Images</title>
+  
+  <style>
+    .header-content {
+      text-align: center;
+    }
+
+    .btn {
+      background: transparent;
+      border: none;
+      background-color: rgb(216, 34, 74);
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    /* JavaScript */
+    .cats {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .random_cats {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: 150%;
+      height: 30rem;
+
+    }
+  </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+      </ul>
+      <br><br>
+  <section class="header-content">
+    <button class="btn">Get Random Cat</button>
+  </section>
+  <br><br>
+
+  <div class="container"></div>
+
+  <script>
+    const url = "https://api.thecatapi.com/v1/images/search";
+    const section = document.querySelector(".container");
+    const button = document.querySelector(".btn");
+
+    button.addEventListener("click", getRandomCats);
+
+    function randomCatPhoto(json) {
+      let photo = json[0].url;
+      section.classList.add("cats");
+
+      let image = document.createElement("img");
+      image.src = photo;
+      image.classList.add("random_cats");
+      image.alt = photo;
+      section.innerHTML = "";
+      section.appendChild(image);
+    }
+
+    async function getRandomCats() {
+      section.innerHTML = "";
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log("JSON:", json);
+        return randomCatPhoto(json);
+      } catch (e) {
+        console.log("This is an error");
+        console.log(e);
+      }
+    }
+  </script>
+</body>
+</html>

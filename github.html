@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+      </ul>
+    <h1>GitHub API</h1>
+
+    <center>
+    <div id="search-container">
+        <label for="repository">Nome do repositório:</label>
+        <input type="text" id="repository" name="repository">
+        <button onclick="searchRepositories()">Pesquisar</button>
+    </div>
+    </center>
+
+    <div id="repository-container"></div>
+
+    <script>
+        // API do GitHub
+        const apiKey = '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';
+
+        // Função para buscar repositórios no GitHub
+        function searchRepositories() {
+            const repositoryName = document.getElementById('repository').value;
+
+            fetch(`https://api.github.com/search/repositories?q=${repositoryName}`, {
+                headers: {
+                    Authorization: `Bearer ${apiKey}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const repositoryContainer = document.getElementById('repository-container');
+                    const searchContainer = document.getElementById('search-container');
+                    
+                    repositoryContainer.innerHTML = '';
+
+                    if (data && data.items && data.items.length > 0) {
+                        data.items.forEach(repo => {
+                            const repoElement = document.createElement('div');
+                            repoElement.innerHTML = `
+                                <h2>${repo.name}</h2>
+                                <p>${repo.description || ''}</p>
+                                <p>Language: ${repo.language}</p>
+                                <p>Stars: ${repo.stargazers_count}</p>
+                                <p>URL: <a href="${repo.html_url}" target="_blank">${repo.html_url}</a></p>
+                            `;
+                            repositoryContainer.appendChild(repoElement);
+                        });
+
+                        // Move o container de pesquisa para cima
+                        searchContainer.style.marginBottom = '20px';
+                    } else {
+                        repositoryContainer.textContent = 'Nenhum repositório encontrado.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    </script>
+</body>
+</html>

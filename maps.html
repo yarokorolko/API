@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Google Maps API</title>
+    <style>
+        /* Estilos CSS aqui */
+        #map {
+            height: 800px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+      </ul>
+    <h1>Google Maps API</h1>
+    <div id="map"></div>
+    
+    <script>
+        // Sua chave de API do Google Maps
+        var apiKey = 'AIzaSyDcK1KNzGn-XO3a9O9H_I_MH03LRlEICRs';
+
+        // Código JavaScript para inicializar o mapa e usá-lo
+        function initMap() {
+            var myLatLng = { lat: 39.25364558222492, lng: -8.681504845306565 }; // Coordenadas de exemplo
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 12
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Marker de exemplo'
+            });
+        }
+
+        // Carregar a API do Google Maps com a chave de API
+        function loadGoogleMapsAPI() {
+            var script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&callback=initMap';
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+
+        // Chame a função loadGoogleMapsAPI após o carregamento da página
+        document.addEventListener('DOMContentLoaded', loadGoogleMapsAPI);
+    </script>
+</body>
+</html>

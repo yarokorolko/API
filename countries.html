@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rest Countries API Example</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #countryContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .countryCard {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .countryCard h2 {
+      margin-bottom: 10px;
+    }
+
+    .countryCard p {
+      margin: 5px 0;
+    }
+
+    .countryFlag {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+        <li><a href="weather.html">OpenWeatherMap API</a></li>
+        <li><a href="maps.html">Google Maps API</a></li>
+        <li><a href="github.html">Github API</a></li>
+        <li><a href="youtube.html">Youtube API</a></li>
+        <li><a href="lol.html">Summoner API</a></li>
+        <li><a href="cats.html">Cats API</a></li>
+        <li><a href="countries.html">Rest Countries API Example</a></li>
+        <li><a href="quotes.html">Random Quotes API</a></li>
+      </ul>
+  <h1>Rest Countries API Example</h1>
+  <div id="countryContainer"></div>
+
+  <script>
+    async function getCountries() {
+      const response = await fetch('https://restcountries.com/v2/all');
+      const countries = await response.json();
+      return countries;
+    }
+
+    function createCountryCard(country) {
+      const countryCard = document.createElement('div');
+      countryCard.classList.add('countryCard');
+
+      const countryFlag = document.createElement('span');
+      countryFlag.classList.add('countryFlag');
+      countryFlag.textContent = getCountryFlagEmoji(country.alpha2Code);
+
+      const countryName = document.createElement('h2');
+      countryName.textContent = country.name;
+
+      const countryPopulation = document.createElement('p');
+      countryPopulation.textContent = `Population: ${country.population}`;
+
+      const countryRegion = document.createElement('p');
+      countryRegion.textContent = `Region: ${country.region}`;
+
+      const countryCapital = document.createElement('p');
+      countryCapital.textContent = `Capital: ${country.capital}`;
+
+      countryCard.appendChild(countryFlag);
+      countryCard.appendChild(countryName);
+      countryCard.appendChild(countryPopulation);
+      countryCard.appendChild(countryRegion);
+      countryCard.appendChild(countryCapital);
+
+      return countryCard;
+    }
+
+    function getCountryFlagEmoji(countryCode) {
+      const codePoints = countryCode
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt());
+      return String.fromCodePoint(...codePoints);
+    }
+
+    async function displayCountries() {
+      const countryContainer = document.getElementById('countryContainer');
+      countryContainer.innerHTML = '';
+
+      try {
+        const countries = await getCountries();
+
+        countries.forEach(country => {
+          const countryCard = createCountryCard(country);
+          countryContainer.appendChild(countryCard);
+        });
+      } catch (error) {
+        console.log('Error:', error);
+        countryContainer.textContent = 'Failed to fetch country data.';
+      }
+    }
+
+    displayCountries();
+  </script>
+</body>
+</html>
